@@ -14,7 +14,6 @@ def Inventory_view(request):
     return Response(serializer.data)
 
 @api_view(['POST'])
-@api_view(['POST'])
 def Inventory_cam(request):
     book_isbn = request.data['isbn']
     quantity = request.data['quantity']
