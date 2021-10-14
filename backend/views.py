@@ -14,8 +14,10 @@ def Inventory_view(request):
     return Response(serializer.data)
 
 @api_view(['POST'])
+@api_view(['POST'])
 def Inventory_cam(request):
     book_isbn = request.data['isbn']
+    quantity = request.data['quantity']
     url = 'https://www.googleapis.com/books/v1/volumes?q=isbn+' + book_isbn
     res = requests.get(url)
     res = res.json()
@@ -30,7 +32,9 @@ def Inventory_cam(request):
             i += 1
     data_json = {
         "title":title,
-        "book_over_pic":book_cover_pic
+        "book_over_pic":book_cover_pic,
+        "quantity":quantity
+
     }
     serializer = inventorySerializer(data=data_json)
     if(serializer.is_valid()):
