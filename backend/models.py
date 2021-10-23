@@ -1,4 +1,10 @@
+from typing import DefaultDict
 from django.db import models
+from django.utils.translation import gettext_lazy as _
+
+
+def upload_to(instance,filename):
+    return 'User/{filename}'.format(filename=filename)
 
 class inventory(models.Model):
     
@@ -9,3 +15,10 @@ class inventory(models.Model):
     def __str__(self):
         return self.title
 
+class Users(models.Model):
+    name = models.CharField(max_length=50,blank=False)
+    User_photo = models.ImageField(_("Image"),upload_to=upload_to,default='User/default.png')
+    
+    def __str__(self):
+        return self.name
+    

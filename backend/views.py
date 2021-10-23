@@ -1,7 +1,7 @@
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
-from .models import inventory
-from .serializers import inventorySerializer
+from .models import inventory,Users
+from .serializers import inventorySerializer,UserSerializer
 from datetime import datetime
 import requests
 
@@ -16,6 +16,7 @@ def Inventory_view(request):
 @api_view(['POST'])
 def Inventory_cam(request):
     book_isbn = request.data['isbn']
+    quantity = request.data['quantity']
     url = 'https://www.googleapis.com/books/v1/volumes?q=isbn+' + book_isbn
     res = requests.get(url)
     res = res.json()
@@ -30,7 +31,9 @@ def Inventory_cam(request):
             i += 1
     data_json = {
         "title":title,
-        "book_over_pic":book_cover_pic
+        "book_over_pic":book_cover_pic,
+        "quantity":quantity
+
     }
     serializer = inventorySerializer(data=data_json)
     if(serializer.is_valid()):
@@ -64,3 +67,35 @@ def Inventory_delete(request,pk):
     
     return Response('deleted!')
     
+@api_view(['GET'])
+def User_view(request):
+    task = Users.objects.all()
+    serializer = UserSerializer(task,many=True)
+    
+    return Response(serializer.data)
+
+  
+
+@api_view(["POST"])
+def User_create(request):
+    serializer = UserSerializer(data=request.data)
+    if(serializer.is_valid()):
+        serializer.save()
+    
+    return Response(serializer.data)
+
+@api_view(["PUT"])
+def User_update(request,pk):
+    task = Users.objects.get(id=pk)
+    serializer = UserSerializer(instance=task, data=request.data)
+    if(serializer.is_valid()):
+        serializer.save()
+    
+    return Response(serializer.data)
+    
+@api_view(["DELETE"])
+def User_delete(request,pk):
+    task = Users.objects.get(id=pk)
+    task.delete()
+    
+    return Response('deleted!')
