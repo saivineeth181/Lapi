@@ -15,10 +15,10 @@ class inventory(models.Model):
     def __str__(self):
         return self.title
 
-class Users(models.Model):
+class Patrons(models.Model):
     name = models.CharField(max_length=50,blank=False)
     User_photo = models.ImageField(_("Image"),upload_to=upload_to,default='User/default.png')
-    
+    no_of_books = models.IntegerField(_("noofbooks"),default=0)
     def __str__(self):
         return self.name
     

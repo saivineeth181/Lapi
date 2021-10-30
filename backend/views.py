@@ -1,7 +1,7 @@
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
-from .models import inventory,Users
-from .serializers import inventorySerializer,UserSerializer
+from .models import inventory,Patrons
+from .serializers import inventorySerializer,PatronsSerializer
 from datetime import datetime
 import requests
 
@@ -68,34 +68,34 @@ def Inventory_delete(request,pk):
     return Response('deleted!')
     
 @api_view(['GET'])
-def User_view(request):
-    task = Users.objects.all()
-    serializer = UserSerializer(task,many=True)
+def Patrons_view(request):
+    task = Patrons.objects.all()
+    serializer = PatronsSerializer(task,many=True)
     
     return Response(serializer.data)
 
   
 
 @api_view(["POST"])
-def User_create(request):
-    serializer = UserSerializer(data=request.data)
+def Patrons_create(request):
+    serializer = PatronsSerializer(data=request.data)
     if(serializer.is_valid()):
         serializer.save()
     
     return Response(serializer.data)
 
 @api_view(["PUT"])
-def User_update(request,pk):
-    task = Users.objects.get(id=pk)
-    serializer = UserSerializer(instance=task, data=request.data)
+def Patrons_update(request,pk):
+    task = Patrons.objects.get(id=pk)
+    serializer = PatronsSerializer(instance=task, data=request.data)
     if(serializer.is_valid()):
         serializer.save()
     
     return Response(serializer.data)
     
 @api_view(["DELETE"])
-def User_delete(request,pk):
-    task = Users.objects.get(id=pk)
+def Patrons_delete(request,pk):
+    task = Patrons.objects.get(id=pk)
     task.delete()
     
     return Response('deleted!')
