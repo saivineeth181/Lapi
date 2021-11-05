@@ -12,4 +12,8 @@ urlpatterns = [
     path('patronscreate',views.Patrons_create,name='Patronscreate_task'),
     path('patronsupdate/<str:pk>',views.Patrons_update,name='Patronsupdate_task'),
     path('patronsdelete/<str:pk>',views.Patrons_delete,name='Patronsdelete_task'),
+    path('list/<str:username>',views.List_view,name="List_overview"),
+    path('listcreate',views.List_create,name='Listcreate_task'),
+    path('listupdate/<str:pk>',views.List_update,name='Listupdate_task'),
+    path('listdelete/<str:pk>',views.List_delete,name='Listdelete_task'),
 ]
