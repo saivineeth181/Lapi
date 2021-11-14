@@ -6,4 +6,4 @@ release: python manage.py migrate --noinpute
 =======
 release: python manage.py migrate --noinput
 >>>>>>> 43a652f2ea30f37600e587d5a34eda5591ba84ed
-release: ./manage.py createsuperuser --username saivineeth --password vineeth --noinput --email 'saivineeth181@email.com'
+release: python manage.py createsuperuser --username saivineeth --password vineeth --noinput --email 'saivineeth181@email.com'
