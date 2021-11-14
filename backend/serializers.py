@@ -21,7 +21,7 @@ class ListSerializer(serializers.ModelSerializer):
     
     class Meta:
         model = List
-        fields = ('name','title','book_pic','quantity','status')
+        fields = ('id','name','title','book_pic','quantity','status')
     
     def create(self, validated_data):
         name = validated_data.pop('name')
